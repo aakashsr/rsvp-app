@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import "./App.css";
 import GuestLists from "./GuestLists";
+// import Checkbox from "./Checkbox";
 
 class App extends Component {
   state = {
+    isChecked: false,
+    pendingGuest: "",
     guests: [
       {
         name: "Treasure",
@@ -21,6 +24,12 @@ class App extends Component {
         isEditing: true
       }
     ]
+  };
+
+  handleInput = event => {
+    this.setState({
+      pendingGuest: event.target.value
+    });
   };
 
   toggleConformationAt = indexToChange => {
@@ -41,6 +50,38 @@ class App extends Component {
     const newState = { ...this.state };
     newState.guests[indexToChange].name = name;
     this.setState(newState);
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+   this.setState(prevContacts => ({
+     guests: [
+       {
+         name: this.state.pendingGuest,
+         isConfirmed: false,
+         isEditing: false
+       },
+       ...prevContacts.guests
+     ],
+     pendingGuest:""
+   }));
+  };
+
+  // handleFilter = () => {
+  //   this.setState(currentState => ({
+  //     guests: currentState.guests.filter(guest => {
+  //       if (this.state.checked) {
+  //         return guest.isConfirmed === true;
+  //       }
+  //       return guest;
+  //     })
+  //   }));
+  // };
+
+  toggleFilter = () => {
+    this.setState({
+      isChecked: !this.state.isChecked
+    });
   };
 
   // toggleConformationAt = indexToChange =>
@@ -66,8 +107,13 @@ class App extends Component {
         <header>
           <h1>RSVP</h1>
           <p>A Treehouse App</p>
-          <form>
-            <input type="text" value="Safia" placeholder="Invite Someone" />
+          <form onSubmit={this.handleSubmit}>
+            <input
+              onChange={this.handleInput}
+              type="text"
+              value={this.state.pendingGuest}
+              placeholder="Invite Someone"
+            />
             <button type="submit" name="submit" value="submit">
               Submit
             </button>
@@ -77,7 +123,8 @@ class App extends Component {
           <div>
             <h2>Invitees</h2>
             <label>
-              <input type="checkbox" /> Hide those who haven't responded
+              <input onChange={this.toggleFilter} type="checkbox" /> Hide those
+              who haven't responded
             </label>
           </div>
           <table className="counter">
@@ -103,6 +150,7 @@ class App extends Component {
             toggleConformationAt={this.toggleConformationAt}
             toggleEditAt={this.toggleEditAt}
             setNameAt={this.setNameAt}
+            isChecked={this.state.isChecked}
           />
         </div>
       </div>

@@ -2,9 +2,12 @@ import React from "react";
 import Guest from "./Guest";
 
 const GuestLists = props => {
+  console.log(props.isChecked);
   return (
     <ul>
-      {props.guests.map((guest, index) => (
+      {props.guests
+      .filter(guest => !props.isChecked || guest.isConfirmed)
+      .map((guest, index) => (
         <Guest
           key={index}
           name={guest.name}
