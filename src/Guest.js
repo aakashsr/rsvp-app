@@ -1,8 +1,15 @@
-import React from 'react'
+import React from "react";
+import GuestName from "./GuestName";
 
 const Guest = props => (
   <li key={props.index}>
-    <span>{props.name}</span>
+    <GuestName
+      isEditing={props.isEditing}
+      name={props.name}
+      handleNameEdits={e => props.setName(e.target.value)}
+    >
+      {props.name}
+    </GuestName>
     <label>
       <input
         onChange={props.handleConformationAt}
@@ -11,9 +18,13 @@ const Guest = props => (
       />
       Confirmed
     </label>
-    <button>edit</button>
+    <button onClick={props.handleEditAt}>
+    {
+      (props.isEditing)?"Save":"Edit"
+    }
+    </button>
     <button>remove</button>
   </li>
 );
 
-export default Guest ;
+export default Guest;

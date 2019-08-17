@@ -7,27 +7,54 @@ class App extends Component {
     guests: [
       {
         name: "Treasure",
-        isConfirmed: false
+        isConfirmed: false,
+        isEditing: false
       },
       {
         name: "Nic",
-        isConfirmed: true
+        isConfirmed: false,
+        isEditing: false
+      },
+      {
+        name: "Matt K",
+        isConfirmed: true,
+        isEditing: true
       }
     ]
   };
 
-  toggleConformationAt = indexToChange =>
-    this.setState({
-      guests: this.state.guests.map((guest, index) => {
-        if (indexToChange === index) {
-          return {
-            ...guest,
-            isConfirmed: !guest.isConfirmed
-          };
-        }
-        return guest;
-      })
-    });
+  toggleConformationAt = indexToChange => {
+    const newState = { ...this.state };
+    newState.guests[indexToChange].isConfirmed = !newState.guests[indexToChange]
+      .isConfirmed;
+    this.setState(newState);
+  };
+
+  toggleEditAt = indexToChange => {
+    const newState = { ...this.state };
+    newState.guests[indexToChange].isEditing = !newState.guests[indexToChange]
+      .isEditing;
+    this.setState(newState);
+  };
+
+  setNameAt = (name, indexToChange) => {
+    const newState = { ...this.state };
+    newState.guests[indexToChange].name = name;
+    this.setState(newState);
+  };
+
+  // toggleConformationAt = indexToChange =>
+  //   this.setState({
+  //     guests: this.state.guests.map((guest, index) => {
+  //       if (indexToChange === index) {
+  //         return {
+  //           ...guest,
+  //           isConfirmed: !guest.isConfirmed
+  //         };
+  //       }
+  //       return guest;
+  //     })
+  //   });
 
   getTotalInvited = () => this.state.guests.length;
   // getAttendingGuests = () =>
@@ -70,8 +97,12 @@ class App extends Component {
             </tbody>
           </table>
 
-          <GuestLists guests={this.state.guests} 
+          <GuestLists
+            guests={this.state.guests}
+            isEditing={this.isEditing}
             toggleConformationAt={this.toggleConformationAt}
+            toggleEditAt={this.toggleEditAt}
+            setNameAt={this.setNameAt}
           />
         </div>
       </div>

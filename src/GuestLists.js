@@ -8,8 +8,11 @@ const GuestLists = props => {
         <Guest
           key={index}
           name={guest.name}
+          isEditing={guest.isEditing}
           isConfirmed={guest.isConfirmed}
           handleConformationAt={() => props.toggleConformationAt(index)}
+          handleEditAt={() => props.toggleEditAt(index)}
+          setName={(text) => props.setNameAt(text,index)}
         />
       ))}
     </ul>
