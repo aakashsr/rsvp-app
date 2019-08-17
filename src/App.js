@@ -16,6 +16,19 @@ class App extends Component {
     ]
   };
 
+  toggleConformationAt = indexToChange =>
+    this.setState({
+      guests: this.state.guests.map((guest, index) => {
+        if (indexToChange === index) {
+          return {
+            ...guest,
+            isConfirmed: !guest.isConfirmed
+          };
+        }
+        return guest;
+      })
+    });
+
   getTotalInvited = () => this.state.guests.length;
   // getAttendingGuests = () =>
   // getUnconfirmedGuests = () =>
@@ -56,14 +69,14 @@ class App extends Component {
               </tr>
             </tbody>
           </table>
-          
-          <GuestLists guests={this.state.guests}/>
+
+          <GuestLists guests={this.state.guests} 
+            toggleConformationAt={this.toggleConformationAt}
+          />
         </div>
       </div>
     );
-
   }
 }
-
 
 export default App;
