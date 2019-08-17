@@ -158,6 +158,7 @@ class App extends Component {
             setNameAt={this.setNameAt}
             isChecked={this.state.isChecked}
             handleRemoveGuest={this.handleRemoveGuest}
+            pendingGuest={this.state.pendingGuest}
           />
         </div>
       </div>
