@@ -19,11 +19,9 @@ const Guest = props => (
       Confirmed
     </label>
     <button onClick={props.handleEditAt}>
-    {
-      (props.isEditing)?"Save":"Edit"
-    }
+      {props.isEditing ? "Save" : "Edit"}
     </button>
-    <button>remove</button>
+    <button onClick={(props.handleRemove)}>remove</button>
   </li>
 );
 

@@ -67,6 +67,12 @@ class App extends Component {
    }));
   };
 
+  handleRemoveGuest = (index) => {
+    let newState = {...this.state};
+    newState.guests.splice(index,1);
+    this.setState(newState);
+  }
+
   // handleFilter = () => {
   //   this.setState(currentState => ({
   //     guests: currentState.guests.filter(guest => {
@@ -151,6 +157,7 @@ class App extends Component {
             toggleEditAt={this.toggleEditAt}
             setNameAt={this.setNameAt}
             isChecked={this.state.isChecked}
+            handleRemoveGuest={this.handleRemoveGuest}
           />
         </div>
       </div>

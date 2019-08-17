@@ -16,6 +16,7 @@ const GuestLists = props => {
           handleConformationAt={() => props.toggleConformationAt(index)}
           handleEditAt={() => props.toggleEditAt(index)}
           setName={(text) => props.setNameAt(text,index)}
+          handleRemove={() => props.handleRemoveGuest(index)}
         />
       ))}
     </ul>
