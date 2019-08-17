@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import GuestLists from "./GuestLists";
+import Counter from "./Counter";
 // import Checkbox from "./Checkbox";
 
 class App extends Component {
@@ -54,24 +55,24 @@ class App extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-   this.setState(prevContacts => ({
-     guests: [
-       {
-         name: this.state.pendingGuest,
-         isConfirmed: false,
-         isEditing: false
-       },
-       ...prevContacts.guests
-     ],
-     pendingGuest:""
-   }));
+    this.setState(prevContacts => ({
+      guests: [
+        {
+          name: this.state.pendingGuest,
+          isConfirmed: false,
+          isEditing: false
+        },
+        ...prevContacts.guests
+      ],
+      pendingGuest: ""
+    }));
   };
 
-  handleRemoveGuest = (index) => {
-    let newState = {...this.state};
-    newState.guests.splice(index,1);
+  handleRemoveGuest = index => {
+    let newState = { ...this.state };
+    newState.guests.splice(index, 1);
     this.setState(newState);
-  }
+  };
 
   // handleFilter = () => {
   //   this.setState(currentState => ({
@@ -104,10 +105,17 @@ class App extends Component {
   //   });
 
   getTotalInvited = () => this.state.guests.length;
-  // getAttendingGuests = () =>
-  // getUnconfirmedGuests = () =>
+
+  getAttendingGuests = () =>
+    this.state.guests.reduce(
+      (total, guest) => (guest.isConfirmed ? total + 1 : total),
+      0
+    );
 
   render() {
+    const totalInvited = this.getTotalInvited();
+    const numberAttending = this.getAttendingGuests();
+    const numberUnconfirmed = totalInvited - numberAttending;
     return (
       <div className="App">
         <header>
@@ -133,22 +141,12 @@ class App extends Component {
               who haven't responded
             </label>
           </div>
-          <table className="counter">
-            <tbody>
-              <tr>
-                <td>Attending:</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>Unconfirmed:</td>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>Total:</td>
-                <td>3</td>
-              </tr>
-            </tbody>
-          </table>
+
+          <Counter
+            totalInvited={totalInvited}
+            numberAttending={numberAttending}
+            numberUnconfirmed={numberUnconfirmed}
+          />
 
           <GuestLists
             guests={this.state.guests}
