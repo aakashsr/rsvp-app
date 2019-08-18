@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
-import GuestLists from "./GuestLists";
-import Counter from "./Counter";
+import Header from "./Header";
+import MainContent from "./MainContent";
 // import Checkbox from "./Checkbox";
 
 class App extends Component {
@@ -118,47 +118,25 @@ class App extends Component {
     const numberUnconfirmed = totalInvited - numberAttending;
     return (
       <div className="App">
-        <header>
-          <h1>RSVP</h1>
-          <p>A Treehouse App</p>
-          <form onSubmit={this.handleSubmit}>
-            <input
-              onChange={this.handleInput}
-              type="text"
-              value={this.state.pendingGuest}
-              placeholder="Invite Someone"
-            />
-            <button type="submit" name="submit" value="submit">
-              Submit
-            </button>
-          </form>
-        </header>
-        <div className="main">
-          <div>
-            <h2>Invitees</h2>
-            <label>
-              <input onChange={this.toggleFilter} type="checkbox" /> Hide those
-              who haven't responded
-            </label>
-          </div>
-
-          <Counter
-            totalInvited={totalInvited}
-            numberAttending={numberAttending}
-            numberUnconfirmed={numberUnconfirmed}
-          />
-
-          <GuestLists
-            guests={this.state.guests}
-            isEditing={this.isEditing}
-            toggleConformationAt={this.toggleConformationAt}
-            toggleEditAt={this.toggleEditAt}
-            setNameAt={this.setNameAt}
-            isChecked={this.state.isChecked}
-            handleRemoveGuest={this.handleRemoveGuest}
-            pendingGuest={this.state.pendingGuest}
-          />
-        </div>
+        <Header
+          handleSubmit={this.handleSubmit}
+          handleInput={this.handleInput}
+          pendingGuest={this.state.pendingGuest}
+        />
+        <MainContent
+          toggleFilter={this.toggleFilter}
+          guests={this.state.guests}
+          isEditing={this.isEditing}
+          toggleConformationAt={this.toggleConformationAt}
+          toggleEditAt={this.toggleEditAt}
+          setNameAt={this.setNameAt}
+          isChecked={this.state.isChecked}
+          handleRemoveGuest={this.handleRemoveGuest}
+          pendingGuest={this.state.pendingGuest}
+          totalInvited={totalInvited}
+          numberAttending={numberAttending}
+          numberUnconfirmed={numberUnconfirmed}
+        />
       </div>
     );
   }
