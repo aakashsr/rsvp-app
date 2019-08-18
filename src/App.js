@@ -15,16 +15,24 @@ class App extends Component {
         isEditing: false
       },
       {
-        name: "Nic",
+        name: "Matt K",
         isConfirmed: false,
-        isEditing: false
+        isEditing: true
       },
       {
-        name: "Matt K",
+        name: "Nic",
         isConfirmed: true,
-        isEditing: true
+        isEditing: false
       }
     ]
+  };
+
+  lastGuestId = 0;
+
+  newGuestId = () => {
+    const id = this.lastGuestId;
+    this.lastGuestId += 1;
+    return id;
   };
 
   handleInput = event => {
