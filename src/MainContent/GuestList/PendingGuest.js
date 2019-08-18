@@ -1,10 +1,10 @@
 import React from "react";
 
-const PendingGuest = props => {
-  if (props.name) {
+const PendingGuest = ({name}) => {
+  if (name) {
     return (
       <li className="pending">
-        <span>{props.name}</span>
+        <span>{name}</span>
       </li>
     );
   }

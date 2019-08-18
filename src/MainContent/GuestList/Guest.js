@@ -1,27 +1,35 @@
 import React from "react";
 import GuestName from "./GuestName";
 
-const Guest = props => (
-  <li key={props.index}>
+const Guest = ({
+  index,
+  isEditing,
+  name,
+  setName,
+  handleConformationAt,
+  isConfirmed,
+  handleEditAt,
+  idEditing,
+  handleRemove
+}) => (
+  <li key={index}>
     <GuestName
-      isEditing={props.isEditing}
-      name={props.name}
-      handleNameEdits={e => props.setName(e.target.value)}
+      isEditing={isEditing}
+      name={name}
+      handleNameEdits={e => setName(e.target.value)}
     >
-      {props.name}
+      {name}
     </GuestName>
     <label>
       <input
-        onChange={props.handleConformationAt}
+        onChange={handleConformationAt}
         type="checkbox"
-        checked={props.isConfirmed}
+        checked={isConfirmed}
       />
       Confirmed
     </label>
-    <button onClick={props.handleEditAt}>
-      {props.isEditing ? "Save" : "Edit"}
-    </button>
-    <button onClick={(props.handleRemove)}>remove</button>
+    <button onClick={handleEditAt}>{isEditing ? "Save" : "Edit"}</button>
+    <button onClick={handleRemove}>remove</button>
   </li>
 );
 
