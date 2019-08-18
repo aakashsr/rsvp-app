@@ -1,9 +1,22 @@
-import React from 'react';
-import GuestLists from "./GuestLists";
+import React from "react";
+import GuestLists from "./GuestList";
 import Counter from "./Counter";
 import ConfirmedFilter from "./ConfirmedFilter";
 
-const MainContent = ({toggleFilter, totalInvited, numberAttending ,numberUnconfirmed,guests,isEditing ,toggleConformationAt,toggleEditAt,setNameAt,isChecked,handleRemoveGuest ,pendingGuest}) => {
+const MainContent = ({
+  toggleFilter,
+  totalInvited,
+  numberAttending,
+  numberUnconfirmed,
+  guests,
+  isEditing,
+  toggleConformationAt,
+  toggleEditAt,
+  setNameAt,
+  isChecked,
+  handleRemoveGuest,
+  pendingGuest
+}) => {
   return (
     <div className="main">
       <ConfirmedFilter toggleFilter={toggleFilter} />
