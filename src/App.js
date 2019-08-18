@@ -8,23 +8,7 @@ class App extends Component {
   state = {
     isChecked: false,
     pendingGuest: "",
-    guests: [
-      {
-        name: "Treasure",
-        isConfirmed: false,
-        isEditing: false
-      },
-      {
-        name: "Matt K",
-        isConfirmed: false,
-        isEditing: true
-      },
-      {
-        name: "Nic",
-        isConfirmed: true,
-        isEditing: false
-      }
-    ]
+    guests: []
   };
 
   lastGuestId = 0;
@@ -35,31 +19,58 @@ class App extends Component {
     return id;
   };
 
+  toggleGuestProperty = (property, id) =>
+    this.setState({
+      guests: this.state.guests.map(guest => {
+        if (id === guest.id) {
+          return {
+            ...guest,
+            [property]: !guest[property]
+          };
+        }
+        return guest;
+      })
+    });
+
+  toggleConfirmationAt = id => this.toggleGuestProperty("isConfirmed", id);
+
+  handleRemoveGuest = id =>
+    this.setState({
+      guests: this.state.guests.filter(guest => id !== guest.id)
+    });
+
+  toggleEditAt = id => this.toggleGuestProperty("isEditing", id);
+
+  setNameAt = (name, id) =>
+    this.setState({
+      guests: this.state.guests.map(guest => {
+        if (id === guest.id) {
+          return {
+            ...guest,
+            name
+          };
+        }
+        return guest;
+      })
+    });
+
+  toggleFilter = () => {
+    this.setState({
+      isChecked: !this.state.isChecked
+    });
+  };
+
   handleInput = event => {
     this.setState({
       pendingGuest: event.target.value
     });
   };
 
-  toggleConformationAt = indexToChange => {
-    const newState = { ...this.state };
-    newState.guests[indexToChange].isConfirmed = !newState.guests[indexToChange]
-      .isConfirmed;
-    this.setState(newState);
-  };
-
-  toggleEditAt = indexToChange => {
-    const newState = { ...this.state };
-    newState.guests[indexToChange].isEditing = !newState.guests[indexToChange]
-      .isEditing;
-    this.setState(newState);
-  };
-
-  setNameAt = (name, indexToChange) => {
-    const newState = { ...this.state };
-    newState.guests[indexToChange].name = name;
-    this.setState(newState);
-  };
+  // setNameAt = (name, indexToChange) => {
+  //   const newState = { ...this.state };
+  //   newState.guests[indexToChange].name = name;
+  //   this.setState(newState);
+  // };
 
   newGuestHandler = e => {
     e.preventDefault();
@@ -78,41 +89,25 @@ class App extends Component {
     }));
   };
 
-  handleRemoveGuest = index => {
-    let newState = { ...this.state };
-    newState.guests.splice(index, 1);
-    this.setState(newState);
-  };
-
-  // handleFilter = () => {
-  //   this.setState(currentState => ({
-  //     guests: currentState.guests.filter(guest => {
-  //       if (this.state.checked) {
-  //         return guest.isConfirmed === true;
-  //       }
-  //       return guest;
-  //     })
-  //   }));
+  // toggleConformationAt = indexToChange => {
+  //   const newState = { ...this.state };
+  //   newState.guests[indexToChange].isConfirmed = !newState.guests[indexToChange]
+  //     .isConfirmed;
+  //   this.setState(newState);
   // };
 
-  toggleFilter = () => {
-    this.setState({
-      isChecked: !this.state.isChecked
-    });
-  };
+  // toggleEditAt = indexToChange => {
+  //   const newState = { ...this.state };
+  //   newState.guests[indexToChange].isEditing = !newState.guests[indexToChange]
+  //     .isEditing;
+  //   this.setState(newState);
+  // };
 
-  // toggleConformationAt = indexToChange =>
-  //   this.setState({
-  //     guests: this.state.guests.map((guest, index) => {
-  //       if (indexToChange === index) {
-  //         return {
-  //           ...guest,
-  //           isConfirmed: !guest.isConfirmed
-  //         };
-  //       }
-  //       return guest;
-  //     })
-  //   });
+  // handleRemoveGuest = index => {
+  //   let newState = { ...this.state };
+  //   newState.guests.splice(index, 1);
+  //   this.setState(newState);
+  // };
 
   getTotalInvited = () => this.state.guests.length;
 
@@ -135,17 +130,16 @@ class App extends Component {
         />
         <MainContent
           toggleFilter={this.toggleFilter}
-          guests={this.state.guests}
-          isEditing={this.isEditing}
-          toggleConformationAt={this.toggleConformationAt}
-          toggleEditAt={this.toggleEditAt}
-          setNameAt={this.setNameAt}
           isChecked={this.state.isChecked}
-          handleRemoveGuest={this.handleRemoveGuest}
-          pendingGuest={this.state.pendingGuest}
           totalInvited={totalInvited}
           numberAttending={numberAttending}
           numberUnconfirmed={numberUnconfirmed}
+          guests={this.state.guests}
+          toggleConformationAt={this.toggleConfirmationAt}
+          toggleEditAt={this.toggleEditAt}
+          setNameAt={this.setNameAt}
+          handleRemoveGuest={this.handleRemoveGuest}
+          pendingGuest={this.state.pendingGuest}
         />
       </div>
     );

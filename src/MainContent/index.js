@@ -19,7 +19,7 @@ const MainContent = ({
 }) => {
   return (
     <div className="main">
-      <ConfirmedFilter toggleFilter={toggleFilter} />
+      <ConfirmedFilter toggleFilter={toggleFilter} isChecked={isChecked} />
 
       <Counter
         totalInvited={totalInvited}
