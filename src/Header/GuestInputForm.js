@@ -1,8 +1,8 @@
 import React from 'react';
 
-const GuestInputForm = ({ handleSubmit, handleInput, pendingGuest }) => {
+const GuestInputForm = ({ newGuestHandler, handleInput, pendingGuest }) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={newGuestHandler}>
       <input
         onChange={handleInput}
         type="text"

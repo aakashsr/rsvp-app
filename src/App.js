@@ -61,14 +61,16 @@ class App extends Component {
     this.setState(newState);
   };
 
-  handleSubmit = e => {
+  newGuestHandler = e => {
     e.preventDefault();
+    const id = this.newGuestId();
     this.setState(prevContacts => ({
       guests: [
         {
           name: this.state.pendingGuest,
           isConfirmed: false,
-          isEditing: false
+          isEditing: false,
+          id
         },
         ...prevContacts.guests
       ],
@@ -127,7 +129,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header
-          handleSubmit={this.handleSubmit}
+          newGuestHandler={this.newGuestHandler}
           handleInput={this.handleInput}
           pendingGuest={this.state.pendingGuest}
         />
